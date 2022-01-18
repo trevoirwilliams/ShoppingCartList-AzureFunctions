@@ -46,11 +46,11 @@ else
                     <td>@item.ItemName</td>
                     <td>@item.Created</td>
                     <td>
-                        <input type="checkbox" class="form-check" value="@item.Collected" 
+                        <input type="checkbox" class="form-check" checked="@item.Collected" 
                         @onchange="eventArgs => { CheckboxClicked(item, eventArgs.Value); }"/>
                     </td>
                     <td>
-                        <button class="btn btn-danger" @onclick="eventArgs => { DeleteClicked(item); }" >Delete</button>
+                        <button class="btn btn-danger" @onclick="@(()=>DeleteClicked(item))" >Delete</button>
                     </td>
                 </tr>
             }
@@ -59,11 +59,11 @@ else
 }
 
 @code {
-    private ShoppingCartItem[]? items;
+    private IList<ShoppingCartItem> items;
     private CreateShoppingCartItem itemCreate = new();
     protected override async Task OnInitializedAsync()
     {
-        items = await Http.GetFromJsonAsync<ShoppingCartItem[]>("api/shoppingcartitem");
+        items = await Http.GetFromJsonAsync<List<ShoppingCartItem>>("api/shoppingcartitem");
     }
 
     private async Task HandleCreate()
