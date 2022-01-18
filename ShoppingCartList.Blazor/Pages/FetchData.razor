@@ -8,7 +8,11 @@
 <p>Testing interaction with our Azure Functions API</p>
 
 <EditForm Model="itemCreate" OnValidSubmit="HandleCreate">
+    <label>Item Name</label>
     <InputText class="form-control" @bind-Value="itemCreate.ItemName"></InputText>
+    <br/>
+    <label>Category</label>
+    <InputText class="form-control" @bind-Value="itemCreate.Category"></InputText>
     <br/>
     <button class="btn btn-primary" type="submit">
         <span class="oi oi-pencil"></span>
@@ -42,7 +46,7 @@ else
                     <td>@item.ItemName</td>
                     <td>@item.Created</td>
                     <td>
-                        <input type="checkbox" class="form-check" value="@item.Collected"
+                        <input type="checkbox" class="form-check" value="@item.Collected" 
                         @onchange="eventArgs => { CheckboxClicked(item, eventArgs.Value); }"/>
                     </td>
                     <td>
@@ -77,7 +81,7 @@ else
             {
                 Collected = (bool)checkedValue
             };
-        var response = await Http.PutAsJsonAsync<UpdateShoppingCartItem>($"api/shoppingcartitem/{item.Id}", updateitem);
+        var response = await Http.PutAsJsonAsync<UpdateShoppingCartItem>($"api/shoppingcartitem/{item.Id}/{item.Category}", updateitem);
         if (response.IsSuccessStatusCode)
         {
             await OnInitializedAsync();
@@ -86,7 +90,7 @@ else
 
     async Task DeleteClicked(ShoppingCartItem item)
     {
-        var response = await Http.DeleteAsync($"api/shoppingcartitem/{item.Id}");
+        var response = await Http.DeleteAsync($"api/shoppingcartitem/{item.Id}/{item.Category}");
         if (response.IsSuccessStatusCode)
         {
             await OnInitializedAsync();

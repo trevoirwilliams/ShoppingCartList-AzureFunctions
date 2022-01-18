@@ -12,11 +12,15 @@ namespace ShoppingCartList.Blazor.Models
         public DateTime Created { get; set; } = DateTime.Now;
         public string ItemName { get; set; }
         public bool Collected { get; set; }
+        public string Category { get; set; }
+
     }
 
     internal class CreateShoppingCartItem
     {
         public string ItemName { get; set; }
+        public string Category { get; set; }
+
     }
 
     internal class UpdateShoppingCartItem
