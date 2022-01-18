@@ -1,0 +1,95 @@
+﻿@page "/fetchdata"
+@inject HttpClient Http
+
+<PageTitle>Shopping Cart Items</PageTitle>
+
+<h1>Shopping Cart Items</h1>
+
+<p>Testing interaction with our Azure Functions API</p>
+
+<EditForm Model="itemCreate" OnValidSubmit="HandleCreate">
+    <InputText class="form-control" @bind-Value="itemCreate.ItemName"></InputText>
+    <br/>
+    <button class="btn btn-primary" type="submit">
+        <span class="oi oi-pencil"></span>
+        Create Shopping Cart Item
+    </button>
+</EditForm>
+    <br/>
+    <br/>
+
+@if (items == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Item Name</th>
+                <th>Created</th>
+                <th>Collected</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in items)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ItemName</td>
+                    <td>@item.Created</td>
+                    <td>
+                        <input type="checkbox" class="form-check" value="@item.Collected"
+                        @onchange="eventArgs => { CheckboxClicked(item, eventArgs.Value); }"/>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="eventArgs => { DeleteClicked(item); }" >Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private ShoppingCartItem[]? items;
+    private CreateShoppingCartItem itemCreate = new();
+    protected override async Task OnInitializedAsync()
+    {
+        items = await Http.GetFromJsonAsync<ShoppingCartItem[]>("api/shoppingcartitem");
+    }
+
+    private async Task HandleCreate()
+    {
+        var response = await Http.PostAsJsonAsync<CreateShoppingCartItem>("api/shoppingcartitem", itemCreate);
+        if (response.IsSuccessStatusCode)
+        {
+            await OnInitializedAsync();
+        }
+    }
+
+    async Task CheckboxClicked(ShoppingCartItem item, object checkedValue)
+    {
+        UpdateShoppingCartItem updateitem = new UpdateShoppingCartItem()
+            {
+                Collected = (bool)checkedValue
+            };
+        var response = await Http.PutAsJsonAsync<UpdateShoppingCartItem>($"api/shoppingcartitem/{item.Id}", updateitem);
+        if (response.IsSuccessStatusCode)
+        {
+            await OnInitializedAsync();
+        }
+    }
+
+    async Task DeleteClicked(ShoppingCartItem item)
+    {
+        var response = await Http.DeleteAsync($"api/shoppingcartitem/{item.Id}");
+        if (response.IsSuccessStatusCode)
+        {
+            await OnInitializedAsync();
+        }
+    }
+}
