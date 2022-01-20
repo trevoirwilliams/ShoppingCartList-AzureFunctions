@@ -6,14 +6,14 @@
         "methods": [ "GET" ],
         "route": "/"
       },
-      "backendUri": "https://storageaccountfunct991b.z20.web.core.windows.net/index.html"
+      "backendUri": "https://shoppingcartlist.azurewebsites.net/index.html"
     },
-    "proxyContent": {
+    "proxyCss": {
       "matchCondition": {
         "methods": [ "GET" ],
         "route": "/css/{*restOfPath}"
       },
-      "backendUri": "https://storageaccountfunct991b.z20.web.core.windows.net/css/{restOfPath}"
+      "backendUri": "https://shoppingcartlist.azurewebsites.net/css/{restOfPath}"
     }
   }
 } 
