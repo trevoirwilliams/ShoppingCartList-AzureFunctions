@@ -6,21 +6,14 @@
         "methods": [ "GET" ],
         "route": "/"
       },
-      "backendUri": "https://shoppingcartlist.azurewebsites.net/index.html"
+      "backendUri": "https://storageaccountfunct991b.z20.web.core.windows.net/"
     },
     "proxyContent": {
       "matchCondition": {
         "methods": [ "GET" ],
         "route": "/css/{*restOfPath}"
       },
-      "backendUri": "https://shoppingcartlist.azurewebsites.net/css/{restOfPath}"
-    },
-    "proxyCallback": {
-      "matchCondition": {
-        "methods": [ "GET" ],
-        "route": "/.auth/login/aad/callback"
-      },
-      "backendUri": "https://shoppingcartlist.azurewebsites.net/index.html"
+      "backendUri": "https://storageaccountfunct991b.z20.web.core.windows.net/css/{restOfPath}"
     }
   }
 }
