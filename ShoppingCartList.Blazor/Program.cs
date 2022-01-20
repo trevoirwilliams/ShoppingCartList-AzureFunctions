@@ -12,6 +12,7 @@ if (builder.HostEnvironment.IsProduction())
     baseAddress = "https://shoppingcartlist-api.azurewebsites.net";
 }
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
+////builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("") });
 
 await builder.Build().RunAsync();
