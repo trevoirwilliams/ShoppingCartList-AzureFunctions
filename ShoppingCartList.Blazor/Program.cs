@@ -13,6 +13,6 @@ if (builder.HostEnvironment.IsProduction())
 }
 
 ////builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();

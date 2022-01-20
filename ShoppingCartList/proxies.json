@@ -6,7 +6,7 @@
         "methods": [ "GET" ],
         "route": "/"
       },
-      "backendUri": "https://storageaccountfunct991b.z20.web.core.windows.net/"
+      "backendUri": "https://storageaccountfunct991b.z20.web.core.windows.net/index.html"
     },
     "proxyContent": {
       "matchCondition": {
