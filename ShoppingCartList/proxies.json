@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "proxyHomePage": {
+      "matchCondition": {
+        "methods": [ "GET" ],
+        "route": "/"
+      },
+      "backendUri": "https://shoppingcartlist.azurewebsites.net/index.html"
+    },
+    "proxyContent": {
+      "matchCondition": {
+        "methods": [ "GET" ],
+        "route": "/css/{*restOfPath}"
+      },
+      "backendUri": "https://shoppingcartlist.azurewebsites.net/css/{restOfPath}"
+    }
+  }
+}
